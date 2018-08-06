@@ -14,7 +14,6 @@ var service = http.createServer(function (req, res) {
 
   var extname = path.extname(pathname);
   console.log(extname);
-  var mime = MIME(extname);
   fs.readFile('./static' + pathname, function (err, data) {
     if (err) {
       res.writeHead(404, {'Content-type': 'text/html; charset=utf-8'});
@@ -23,20 +22,22 @@ var service = http.createServer(function (req, res) {
       });
       return;
     }
+    MIME(extname, function (extname) {
+      res.writeHead(200, {'Content-type': extname + '; charset=utf-8'});
+      res.end(data);
+    });
     console.log('我到了正确返回的位置了');
-    res.writeHead(200, {'Content-type': mime + '; charset=utf-8'});
-    res.end(data);
+
   });
 });
 
-function MIME(extname) {
-  switch (extname) {
-    case  '.jpg':
-      return 'image/jpg';
-      break;
-    case  '.html':
-      return 'text/html';
-      break;
-  }
+function MIME(extname, callback) {
+  fs.readFile('./static/mine.json', function (err, data) {
+    if (err) {
+      throw Error('该文件夹不存在！');
+    }
+    var shuju = JSON.parse(data);
+    callback(shuju[extname]);
+  });
 }
 service.listen(3000, '127.0.0.1');

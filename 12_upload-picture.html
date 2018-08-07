@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>上传图片</title>
+</head>
+<body>
+  <!--在用表单上传图片的或别的什么的时候一定要写name不然传不上去！！！-->
+  <!--在用表单传图片的时候一定要写enctype="multipart/form-data" 不然传不上去！！！！！-->
+  <form action="http://127.0.0.1:3000/stu" method="post" enctype="multipart/form-data">
+    姓名：<input type="text" name="name">
+    <br>
+    <input type="file" name="tupian">
+    <br>
+    <input type="submit">
+  </form>
+</body>
+</html>

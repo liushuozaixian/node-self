@@ -2,7 +2,11 @@
 var http = require('http');
 var querystring = require('querystring');
 var util = require('util');
+var fs = require('fs');
+//这个是第三方的模块
 var formidable = require('formidable');
+var path = require('path');
+
 
 var service = http.createServer(function (req, res) {
   var reqMethod = req.method;
@@ -16,8 +20,11 @@ var service = http.createServer(function (req, res) {
         throw err;
       }
       console.log(files);
+      fs.rename('./' + files.tupian.path, './pictures/' + parseInt(10000 + 89999 * Math.random()) + path.extname(files.tupian.name));
+      console.log(files.tupian.name);
       // res.writeHead(200, {'content-type': 'text/plain'});
-      console.log(util.inspect({fields: fields, files: files}));
+      // console.log(util.inspect({fields: fields, files: files}));
+      // fs.rename(files.)
       res.end('成功');
     });
   }

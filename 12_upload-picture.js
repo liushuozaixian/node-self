@@ -27,7 +27,16 @@ var service = http.createServer(function (req, res) {
       // fs.rename(files.)
       res.end('成功');
     });
+  } else if (req.url === '/') {
+    fs.readFile('./12_upload-picture.html', function (err, data) {
+      if (err) {
+        throw Error('读取文件失败！');
+      }
+      res.end(data);
+    });
+  } else {
+
   }
 });
 
-service.listen(3000, '127.0.0.1');
+service.listen(3000, '10.136.194.182');
